@@ -21,7 +21,7 @@ const tabs = (headerSelector, tabSelector, contentSelector, activeClass, display
     hideTabContent()
     showTabContent()
 
-    // обработчик на область объединящую табы
+    // один обработчик на область объединящую табы
     header.addEventListener("click", (e) => {
         const target = e.target
         // проверка на клик на таб
