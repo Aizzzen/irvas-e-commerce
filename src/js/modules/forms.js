@@ -1,15 +1,11 @@
-const forms = () => {
+import checkNumInputs from './checkNumInputs';
+
+const forms = (state) => {
     // все формы страницы
     const form = document.querySelectorAll('form')
     const inputs = document.querySelectorAll('input')
-    const phoneInputs = document.querySelectorAll('input[name="user_phone"]')
 
-    phoneInputs.forEach(item => {
-        item.addEventListener('input', () => {
-            // замена всех НЕцифр на пустые строки
-            item.value = item.value.replace(/\D/, "")
-        })
-    })
+    checkNumInputs('input[name="user_phone"]')
 
     const message = {
         loaading: "Загрузка...",
@@ -47,6 +43,11 @@ const forms = () => {
 
             // FormData(*форма из которой хочу вытащить данные)
             const formData = new FormData(item)
+            if(item.getAttribute("data-calc") === "end") {
+                for (let key in state) {
+                    formData.append(key, state[key])
+                }
+            }
 
             postData('assets/server.php', formData)
                 .then(response => {
